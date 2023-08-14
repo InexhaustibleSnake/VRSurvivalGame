@@ -42,8 +42,15 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerEnhancedInput->BindAction(InputActions->Movement, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 	PlayerEnhancedInput->BindAction(InputActions->Turn, ETriggerEvent::Triggered, this, &APlayerCharacter::Rotate);
+
 	PlayerEnhancedInput->BindAction(InputActions->RightHandGrab, ETriggerEvent::Started, RightHand, &UHandSkeletalMesh::GrabObject);
 	PlayerEnhancedInput->BindAction(InputActions->LeftHandGrab, ETriggerEvent::Started, LeftHand, &UHandSkeletalMesh::GrabObject);
+
+	PlayerEnhancedInput->BindAction(InputActions->RightHandUse, ETriggerEvent::Started, RightHand, &UHandSkeletalMesh::UseObject);
+	PlayerEnhancedInput->BindAction(InputActions->RightHandUse, ETriggerEvent::Completed, RightHand, &UHandSkeletalMesh::UseObject);
+
+	PlayerEnhancedInput->BindAction(InputActions->LeftHandUse, ETriggerEvent::Started, LeftHand, &UHandSkeletalMesh::UseObject);
+	PlayerEnhancedInput->BindAction(InputActions->LeftHandUse, ETriggerEvent::Completed, LeftHand, &UHandSkeletalMesh::UseObject);
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Amount)

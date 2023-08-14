@@ -6,9 +6,6 @@
 #include "Items/BaseGrabActor.h"
 #include "BaseWeapon.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class VRSURVIVALGAME_API ABaseWeapon : public ABaseGrabActor
 {

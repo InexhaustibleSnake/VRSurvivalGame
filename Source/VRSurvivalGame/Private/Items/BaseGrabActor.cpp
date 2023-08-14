@@ -14,3 +14,5 @@ void ABaseGrabActor::SetGrabbedActorData(bool Grabbed)
 {
 	SkeletalMesh->SetSimulatePhysics(!Grabbed);
 }
+
+void ABaseGrabActor::UseActor(bool UseActor) {}

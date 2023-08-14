@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "InputActionValue.h"
 #include "HandSkeletalMesh.generated.h"
 
 class ABaseGrabActor;
@@ -17,6 +18,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Grab")
 	void GrabObject();
 
+	void UseObject(const FInputActionValue& Value);
+
 protected:
 	void GetSocketData(FVector& TraceStart, FRotator& TraceRotation) const;
 
@@ -26,6 +29,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Grab")
 		FName HandGrabSocket = "ObjectGrabSocket";
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Grab")
+		FName MeleeWeaponSocket = "MeleeWeaponSocket";
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Grab")
 		float TraceRadius = 5.0f;

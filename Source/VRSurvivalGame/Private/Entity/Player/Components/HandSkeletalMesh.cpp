@@ -17,6 +17,7 @@ void UHandSkeletalMesh::GrabObject()
 	GetSocketData(TraceStart, TraceRotation);
 
 	FHitResult HitResult;
+
 	MakeTrace(HitResult, TraceStart, TraceRotation);
 
 	if (HitResult.bBlockingHit)
@@ -24,17 +25,23 @@ void UHandSkeletalMesh::GrabObject()
 		if (!HitResult.GetActor()) return;
 
 		auto GrabActor = Cast<ABaseGrabActor>(HitResult.GetActor());
-		if (!GrabActor)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "Not Grabbable");
-		}
-
-		GrabActor->AttachToComponent(this, FAttachmentTransformRules::SnapToTargetNotIncludingScale, "MeleeWeaponSocket");
+		if (!GrabActor) return;
 
 		GrabbedObject = GrabActor;
-		
+
 		GrabbedObject->SetGrabbedActorData(true);
+		
+		FAttachmentTransformRules AttachmentTransformRules = FAttachmentTransformRules::FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, EAttachmentRule::KeepWorld, false);
+
+		GrabActor->AttachToComponent(this, AttachmentTransformRules, MeleeWeaponSocket);
 	}
+}
+
+void UHandSkeletalMesh::UseObject(const FInputActionValue& Value)
+{
+	if (!GrabbedObject) return;
+
+	GrabbedObject->UseActor(Value.Get<bool>());
 }
 
 void UHandSkeletalMesh::GetSocketData(FVector& TraceStart, FRotator& TraceRotation) const

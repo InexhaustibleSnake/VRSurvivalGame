@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InputActionValue.h"
 #include "BaseGrabActor.generated.h"
 
 UCLASS()
@@ -15,6 +16,8 @@ public:
 	ABaseGrabActor();
 
 	virtual void SetGrabbedActorData(bool Grabbed);
+
+	virtual void UseActor(bool UseActor);
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
