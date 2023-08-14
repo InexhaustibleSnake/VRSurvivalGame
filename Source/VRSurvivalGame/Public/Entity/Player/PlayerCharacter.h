@@ -11,6 +11,7 @@ class UMotionControllerComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UPlayerInputData;
+class UHandSkeletalMesh;
 
 UCLASS()
 class VRSURVIVALGAME_API APlayerCharacter : public ABaseCharacter
@@ -32,17 +33,18 @@ protected:
 		UMotionControllerComponent* LeftHandMC;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-		USkeletalMeshComponent* RightHand;
+		UHandSkeletalMesh* RightHand;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-		USkeletalMeshComponent* LeftHand;
+		UHandSkeletalMesh* LeftHand;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 		UCameraComponent* MainCamera;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Controll")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Control")
 		UInputMappingContext* InputMapping;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Controll")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Control")
 		UPlayerInputData* InputActions;
+
 };

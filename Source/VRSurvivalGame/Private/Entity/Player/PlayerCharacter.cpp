@@ -7,6 +7,7 @@
 #include "InputMappingContext.h"
 #include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "Entity/Player/Input/PlayerInputData.h"
+#include "Entity/Player/Components/HandSkeletalMesh.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -19,8 +20,8 @@ APlayerCharacter::APlayerCharacter()
 	RightHandMC->SetupAttachment(GetRootComponent());
 	LeftHandMC->SetupAttachment(GetRootComponent());
 
-	RightHand = CreateDefaultSubobject<USkeletalMeshComponent>("RightHand");
-	LeftHand = CreateDefaultSubobject<USkeletalMeshComponent>("LeftHand");
+	RightHand = CreateDefaultSubobject<UHandSkeletalMesh>("RightHand");
+	LeftHand = CreateDefaultSubobject<UHandSkeletalMesh>("LeftHand");
 
 	RightHand->SetupAttachment(RightHandMC);
 	LeftHand->SetupAttachment(LeftHandMC);
@@ -41,6 +42,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerEnhancedInput->BindAction(InputActions->Movement, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 	PlayerEnhancedInput->BindAction(InputActions->Turn, ETriggerEvent::Triggered, this, &APlayerCharacter::Rotate);
+	PlayerEnhancedInput->BindAction(InputActions->RightHandGrab, ETriggerEvent::Started, RightHand, &UHandSkeletalMesh::GrabObject);
+	PlayerEnhancedInput->BindAction(InputActions->LeftHandGrab, ETriggerEvent::Started, LeftHand, &UHandSkeletalMesh::GrabObject);
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Amount)
@@ -55,4 +58,3 @@ void APlayerCharacter::Rotate(const FInputActionValue& Amount)
 	FRotator Rotation(0.0f, Amount.Get<FVector2D>().X * RotationScale, 0.0f);
 	AddActorWorldRotation(Rotation, false, nullptr, ETeleportType::None);
 }
-
