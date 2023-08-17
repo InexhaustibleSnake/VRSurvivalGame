@@ -7,3 +7,10 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bCanEverTick = false;
 
 }
+
+void ABaseCharacter::BeginPlay()
+{
+    check(GetCharacterMovement());
+    check(GetCapsuleComponent());
+    check(GetMesh());
+}

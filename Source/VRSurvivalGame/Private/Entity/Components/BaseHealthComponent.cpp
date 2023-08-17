@@ -25,7 +25,6 @@ void UBaseHealthComponent::OnTakePointDamage(AActor* DamagedActor, float Damage,
 void UBaseHealthComponent::SetHealth(float HealthValue)
 {
 	Health = HealthValue;
-
 	OnHealthChanged.Broadcast(Health);
 }
 

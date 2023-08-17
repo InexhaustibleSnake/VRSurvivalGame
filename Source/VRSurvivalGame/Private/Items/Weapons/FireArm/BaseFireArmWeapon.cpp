@@ -38,7 +38,7 @@ void ABaseFireArmWeapon::ApplyDamage(const FHitResult& HitResult)
 	FPointDamageEvent PointDamageEvent;
 
 	PointDamageEvent.HitInfo = HitResult;
-
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "ApplyDamage");
 	Actor->TakeDamage(Damage, PointDamageEvent, GetController(), this);
 }
 
@@ -56,7 +56,8 @@ bool ABaseFireArmWeapon::MakeTrace(FHitResult& HitResult, const FVector& TraceSt
 	if (!GetWorld()) return false;
 
 	FCollisionQueryParams CollisionParams;
-	CollisionParams.AddIgnoredActor(GetOwner());
+	TArray <AActor*> ActorsToIgnore {this, GetOwner() };
+	CollisionParams.AddIgnoredActors(ActorsToIgnore);
 
 	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 5.0f);
 

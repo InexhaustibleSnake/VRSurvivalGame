@@ -14,5 +14,7 @@ class VRSURVIVALGAME_API ABaseCharacter : public ACharacter
 public:
 	ABaseCharacter();
 
+protected:
+	virtual void BeginPlay() override;
 
 };
