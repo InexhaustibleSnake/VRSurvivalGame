@@ -4,15 +4,20 @@
 
 void ABaseFireArmWeapon::UseActor(bool UseActor)
 {
+	Super::UseActor(UseActor);
+
 	UseActor ? FireStart() : FireStop();
 }
 
 void ABaseFireArmWeapon::FireStart()
 {
-	GetWorldTimerManager().SetTimer(ShootTimer, this, &ABaseFireArmWeapon::MakeShot, ShootRate, true, 0.01f);
+	GetWorldTimerManager().SetTimer(ShootTimer, this, &ABaseFireArmWeapon::MakeShot, ShootRate, ShootType == EShootTypes::Automatic, FirstShotDelay);
 }
 
-void ABaseFireArmWeapon::FireStop() { GetWorldTimerManager().ClearTimer(ShootTimer); }
+void ABaseFireArmWeapon::FireStop() 
+{ 
+	GetWorldTimerManager().ClearTimer(ShootTimer); 
+}
 
 void ABaseFireArmWeapon::MakeShot() 
 {

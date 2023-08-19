@@ -42,6 +42,7 @@ void UHandSkeletalMesh::UseObject(const FInputActionValue& Value)
 	if (!GrabbedObject) return;
 
 	GrabbedObject->UseActor(Value.Get<bool>());
+	GrabbedObject->SetOwner(Value.Get<bool>() ? GetOwner() : nullptr);
 }
 
 void UHandSkeletalMesh::GetSocketData(FVector& TraceStart, FRotator& TraceRotation) const

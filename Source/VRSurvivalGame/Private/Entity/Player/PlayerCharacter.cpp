@@ -9,6 +9,7 @@
 #include "Entity/Player/Input/PlayerInputData.h"
 #include "Entity/Player/Components/HandSkeletalMesh.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/CapsuleComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPlayerCharacter, All, All);
 
@@ -93,6 +94,7 @@ void APlayerCharacter::BeginPlay()
 
 void APlayerCharacter::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 	UpdateLocationBasedOnHMD();
 }
 
@@ -106,11 +108,13 @@ void APlayerCharacter::Rotate(const FInputActionValue& Amount)
 {
 	float RotationScale = 2.0f;
 	FRotator Rotation(0.0f, Amount.Get<FVector2D>().X * RotationScale, 0.0f);
-	AddActorWorldRotation(Rotation, false);
+	AddActorWorldRotation(Rotation);
 }
 
 void APlayerCharacter::UpdateLocationBasedOnHMD() //If the player is moving in real life, we want to move the character in the game
 {
+	if (!MainCamera || !GetCapsuleComponent()) return;
+
 	FVector CameraLocation = MainCamera->GetComponentLocation();
 	FVector CapsuleLocation = GetMesh()->GetComponentLocation();
 
@@ -118,7 +122,7 @@ void APlayerCharacter::UpdateLocationBasedOnHMD() //If the player is moving in r
 
 	LocationDelta.Z = 0.0f; //We do not want to change the location of the character in height
 	
-	AddActorWorldOffset(LocationDelta, false);
+	AddActorWorldOffset(LocationDelta);
 
 	VRCameraPointComponent->AddWorldOffset(UKismetMathLibrary::NegateVector(LocationDelta), false);
 }

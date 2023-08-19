@@ -2,8 +2,16 @@
 
 #include "Entity/Zombie/BaseZombie.h"
 #include "Entity/Components/BaseHealthComponent.h"
+#include "AIController.h"
+#include "BrainComponent.h"
 
-ABaseZombie::ABaseZombie()
+void ABaseZombie::OnDeath()
 {
-	HealthComponent = CreateDefaultSubobject<UBaseHealthComponent>("HealthComponent");
+	Super::OnDeath();
+
+    const auto AIController = Cast<AAIController>(Controller);
+    if (AIController && AIController->BrainComponent)
+    {
+        AIController->BrainComponent->Cleanup();
+    }
 }

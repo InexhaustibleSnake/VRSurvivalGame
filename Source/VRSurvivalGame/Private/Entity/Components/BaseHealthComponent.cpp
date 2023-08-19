@@ -33,4 +33,9 @@ void UBaseHealthComponent::TakeDamage(float DamageAmount)
 	float NewHealth = FMath::Clamp(Health - DamageAmount, 0.0f, MaxHealth);
 
 	SetHealth(NewHealth);
+
+	if (IsDead())
+	{
+		OnDeath.Broadcast();
+	}
 }

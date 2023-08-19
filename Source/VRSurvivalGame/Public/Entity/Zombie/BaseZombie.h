@@ -6,18 +6,12 @@
 #include "Entity/BaseCharacter.h"
 #include "BaseZombie.generated.h"
 
-class UBaseHealthComponent;
-
 UCLASS()
 class VRSURVIVALGAME_API ABaseZombie : public ABaseCharacter
 {
 	GENERATED_BODY()
-	
-public:
-	ABaseZombie();
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-		UBaseHealthComponent* HealthComponent;
+	virtual void OnDeath() override;
 
 };

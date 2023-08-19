@@ -7,6 +7,7 @@
 #include "BaseHealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class VRSURVIVALGAME_API UBaseHealthComponent : public UActorComponent
@@ -21,6 +22,12 @@ public:
 
 	UPROPERTY(BlueprintCallable, Category = "Health")
 	FOnHealthChanged OnHealthChanged;
+
+	UPROPERTY(BlueprintCallable, Category = "Health")
+	FOnDeath OnDeath;
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool IsDead() const { return FMath::IsNearlyZero(Health); }
 
 protected:
 	virtual void BeginPlay() override;

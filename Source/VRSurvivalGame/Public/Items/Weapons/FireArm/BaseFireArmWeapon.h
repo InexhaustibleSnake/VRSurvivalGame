@@ -32,8 +32,6 @@ protected:
 	void GetTraceData(FVector& TraceStart, FVector& TraceEnd);
 	bool MakeTrace(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
 
-	bool CheckFireInProgress() { return FireInProgress; }
-
 	AController* GetController();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Socket")
@@ -46,13 +44,15 @@ protected:
 		float ShootRate = 0.15f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Socket")
+		float FirstShotDelay = 0.01f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Socket")
 		FName MuzzleSocket;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Socket")
 	    EShootTypes ShootType;
 
 private:
-	bool FireInProgress;
-
 	FTimerHandle ShootTimer;
+
 };

@@ -13,6 +13,8 @@ ABaseGrabActor::ABaseGrabActor()
 void ABaseGrabActor::SetGrabbedActorData(bool Grabbed)
 {
 	SkeletalMesh->SetSimulatePhysics(!Grabbed);
+
+	SkeletalMesh->SetCollisionObjectType(Grabbed ? ECollisionChannel::ECC_PhysicsBody : ECollisionChannel::ECC_WorldDynamic);
 }
 
 void ABaseGrabActor::UseActor(bool UseActor) {}
