@@ -43,7 +43,7 @@ void ABaseFireArmWeapon::ApplyDamage(const FHitResult& HitResult)
 	FPointDamageEvent PointDamageEvent;
 
 	PointDamageEvent.HitInfo = HitResult;
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "ApplyDamage");
+
 	Actor->TakeDamage(Damage, PointDamageEvent, GetController(), this);
 }
 

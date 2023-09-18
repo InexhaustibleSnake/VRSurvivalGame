@@ -36,6 +36,24 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	check(VRCameraPointComponent);
+	check(RightHandMC);
+	check(LeftHandMC);
+	check(RightHand);
+	check(LeftHand);
+	check(MainCamera);
+}
+
+void APlayerCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	UpdateLocationBasedOnHMD();
+}
+
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -78,24 +96,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerEnhancedInput->BindAction(InputActions->LeftHandUse, ETriggerEvent::Started, LeftHand, &UHandSkeletalMesh::UseObject);
 	PlayerEnhancedInput->BindAction(InputActions->LeftHandUse, ETriggerEvent::Completed, LeftHand, &UHandSkeletalMesh::UseObject);
-}
-
-void APlayerCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-
-	check(VRCameraPointComponent);
-	check(RightHandMC);
-	check(LeftHandMC);
-	check(RightHand);
-	check(LeftHand);
-	check(MainCamera);
-}
-
-void APlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	UpdateLocationBasedOnHMD();
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Amount)
